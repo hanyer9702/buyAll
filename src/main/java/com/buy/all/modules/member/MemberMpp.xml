@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.buy.all.modules.member.MemberMpp">
+
+    <resultMap id="resultMapObj" type="com.buy.all.modules.member.Member"></resultMap>
+	
+	<!-- 로그인 시작 -->
+	<select id="selectOneLogin" resultMap="resultMapObj">
+		SELECT
+			a.ifmmSeq
+			,a.ifmmId
+		FROM
+			infrMember a
+		WHERE 1=1
+			AND a.ifmmId = #{ifmmId}
+			AND a.ifmmPassword = #{ifmmPassword}
+	</select>
+	<!-- 로그인 끝 -->
+</mapper>

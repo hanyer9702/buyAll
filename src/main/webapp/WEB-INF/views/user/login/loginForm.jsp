@@ -11,7 +11,7 @@
 <head>
 <meta charset="uTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>한예린</title>
+<title>로그인</title>
 <link href="/resources/common/_bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="/resources/user/css/style.css" rel="stylesheet" type="text/css">
 <link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet">
@@ -71,13 +71,13 @@
 				 	</div>
 				 	<div>
 				 		<div class="mb-3 mar">
-						    <input type="text" class="form-control form-control-lg" id="userId" placeholder="아이디/인증 이메일">
+						    <input type="text" class="form-control form-control-lg" id="ifmmId" placeholder="아이디/인증 이메일">
 						  </div>
 						  <div class="mb-3">
-						  	<input type="password" class="form-control form-control-lg" id="userPasswd" placeholder="비밀번호">
+						  	<input type="password" class="form-control form-control-lg" id="ifmmPassword" placeholder="비밀번호">
 						  </div>
 						  <div class="d-grid gap-2">
-						  	<button type="submit" class="btn btn-primary btn-lg">로그인</button>
+						  	<button type="button" class="btn btn-primary btn-lg" id="btnLogin" name="">로그인</button>
 						  </div>
 				 	</div>
 				 	<div class="row g-3 align-items-center" style="padding-top: 20px; min-width: 500px;">
@@ -129,6 +129,31 @@
 			</footer>
 		 </div>
 	 </div>
-	<script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+	 <script src="/resources/xdmin/js/validation.js"></script>
+	 <script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+	 <script type="text/javascript">
+	 	$("#btnLogin").on("click",function(){
+	 		$.ajax({
+				async: true 
+				,cache: false
+				,type: "post"
+				,url: "/member/loginProc"
+				,data : { "ifmmId" : $("#ifmmId").val(), "ifmmPassword" : $("#ifmmPassword").val()}
+				,success: function(response) {
+					if(response.rt == "success") {
+						location.href = "/index/indexView";
+					} else {
+						alert("회원없음");
+					}
+				}
+				,error : function(jqXHR, textStatus, errorThrown){
+					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+				}
+			});
+	 	});
+	 		
+	 </script>
 </body>
 </html>
