@@ -63,7 +63,7 @@
 	
 	<div class="container">
 		<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-			<img class="mainIcon d-flex align-items-center col-md-3 mb-2 mb-md-0" alt="" src="/resources/user/image/icon_main_128.png" onclick="location.href='indexView';">
+			<img class="mainIcon d-flex align-items-center col-md-3 mb-2 mb-md-0" alt="" src="/resources/user/image/icon_main_128.png" onclick="location.href='/index/indexView';">
 		
 			<form class="col-12 col-md-7 mb-2 justify-content-center mb-md-0">
 				<div class="input-group">
@@ -107,11 +107,11 @@
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
-	 <script src="/resources/xdmin/js/validation.js"></script>
-	 <script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-	 <script type="text/javascript">
-	 	
-	 </script>
+	<script src="/resources/xdmin/js/validation.js"></script>
+	<script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	<script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript">
+		
+	</script>
 </body>
 </html>

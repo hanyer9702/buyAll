@@ -23,5 +23,17 @@ public class MemberServiceImpl implements MemberService{
 	public Member selectOneLogin(Member dto) throws Exception {
 		return dao.selectOneLogin(dto);
 	}
+
+	@Override
+	public int insert(Member dto) throws Exception {
+
+		dto.setRegDateTime(UtilDateTime.nowDate());
+		dto.setModDateTime(UtilDateTime.nowDate());
+		
+		dao.insertMember(dto);
+		dao.insertMemberEmail(dto);
+		
+		return 0;
+	}
 	
 }

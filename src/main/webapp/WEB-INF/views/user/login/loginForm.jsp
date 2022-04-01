@@ -4,8 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
 
-<% pageContext.setAttribute("br", "\n"); %>
-
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -46,7 +44,7 @@
 		background-color: white;
 		margin-left: auto;
 		margin-right: auto;
-		height: 100%;
+		height:calc(160vh-vh)
 	}
 	.ad{
 		width: 300px;
@@ -58,7 +56,7 @@
 	<div class="top_body">
 		<div class="middle_body">
 			<header>
-				<img class="mainIcon" alt="" src="/resources/user/image/icon_main_128.png" onclick="location.href='';">
+				<img class="mainIcon" alt="" src="/resources/user/image/icon_main_128.png" onclick="location.href='/index/indexView';">
 				<button type="button" style="float: right; margin-top: 40px; background-color: white; border: 1px solid #BDBDBD;">비로그인 주문조회</button>
 			</header>
 			<section>
@@ -90,7 +88,7 @@
 								</div>
 								<div class="col-auto">|</div>
 								<div class="col-auto" style="margin-right:auto;">
-									<a href="">회원가입</a>
+									<a href="/user/memberChoice">회원가입</a>
 								</div>
 					</div>
 					<div class="row g-3 align-items-center" style="min-width: 565px;">

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class MemberController {
 		return "/user/include/bottom";
 	}
 	
-//	로그인
+//	로그인----------------------------------
 	@RequestMapping(value = "/user/loginForm")
 	public String login(Model model) throws Exception {
 		
@@ -48,13 +50,17 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/loginProc")
-	public Map<String, Object> loginProc(Member dto) throws Exception {
+	public Map<String, Object> loginProc(Member dto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		Member rtMember = service.selectOneLogin(dto);
 
 		if(rtMember != null) {
 //			rtMember = service.selectOneLogin(dto);
+			
+			httpSession.setAttribute("sessSeq", rtMember.getIfmmSeq());
+			httpSession.setAttribute("sessId", rtMember.getIfmmId());
+			httpSession.setAttribute("sessName", rtMember.getIfmmName());
 			
 			returnMap.put("rt", "success");
 		} else {
@@ -63,4 +69,29 @@ public class MemberController {
 		return returnMap;
 	}
 	
+//	회원가입-------------------------------------
+	
+//	회원선택
+	@RequestMapping(value = "/user/memberChoice")
+	public String memberChoice(Model model) throws Exception {
+		
+		
+		return "/user/member/memberChoice";
+	}
+	
+//	개인 회원 가입
+	@RequestMapping(value = "/user/memberForm")
+	public String memberForm(Model model) throws Exception {
+		
+		
+		return "/user/member/memberForm";
+	}
+	
+	@RequestMapping(value = "/user/memberInst")
+	public String memberInst(Member dto, Model model) throws Exception {
+		
+		service.insert(dto);
+		
+		return "redirect:/user/loginForm";
+	}
 }

@@ -20,4 +20,53 @@
 			AND a.ifmmPassword = #{ifmmPassword}
 	</select>
 	<!-- 로그인 끝 -->
+	
+	<!-- 회원가입 앞 -->
+	
+	<insert id="insertMember">
+		INSERT INTO infrMember(
+			ifmmId
+			, ifmmPassword
+			, ifmmName
+			, ifmmNickname
+			, ifmmServiceConsentNy
+			, ifmmPersonalConsentNy
+			, ifmmDelNy
+			, regDateTime
+			, modDateTime
+		) VALUES (
+			#{ifmmId}
+			, #{ifmmPassword}
+			, #{ifmmName}
+			, #{ifmmNickname}
+			, #{ifmmServiceConsentNy}
+			, #{ifmmPersonalConsentNy}
+			, 0
+			, #{regDateTime}
+			, #{modDateTime}
+		)
+		<selectKey resultType="string" keyProperty="ifmmSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertMemberEmail">
+		INSERT INTO infrMemberEmail(
+			ifmmSeq
+			,ifmeEmailFull
+			,ifmeDefaultNy
+			,ifmeDelNy
+			, regDateTime
+			, modDateTime
+		) VALUES (
+			#{ifmmSeq} 
+			,#{ifmeEmailFull}
+			,1
+			,0
+			, #{regDateTime}
+			, #{modDateTime}
+		)
+	</insert>
+	
+	<!-- 회원가입 끝 -->
 </mapper>

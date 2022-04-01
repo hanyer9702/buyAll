@@ -24,4 +24,11 @@ public class MemberDao {
 		return sqlSession.selectOne(namespace + ".selectOneLogin", dto);
 	}
 	
+//	회원가입
+	public int insertMember(Member dto) {
+		return sqlSession.insert(namespace + ".insertMember", dto);
+	}
+	public int insertMemberEmail(Member dto) {
+		return sqlSession.insert(namespace + ".insertMemberEmail", dto);
+	}
 }
