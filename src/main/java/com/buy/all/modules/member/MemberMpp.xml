@@ -13,6 +13,7 @@
 		SELECT
 			a.ifmmSeq
 			,a.ifmmId
+			,a.ifmmName 
 		FROM
 			infrMember a
 		WHERE 1=1

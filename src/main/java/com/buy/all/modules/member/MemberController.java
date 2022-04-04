@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+
 /**
  * Handles requests for the application home page.
  */
@@ -66,6 +67,20 @@ public class MemberController {
 		} else {
 			returnMap.put("rt", "fail");
 		}
+		return returnMap;
+	}
+	
+//	·Î±×¾Æ¿ô -------------------------
+	
+	@ResponseBody
+	@RequestMapping(value = "/member/logoutProc")
+	public Map<String, Object> logoutProc(Member dto, HttpSession httpSession) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		httpSession.invalidate();
+		
+		returnMap.put("rt", "success");
+		
 		return returnMap;
 	}
 	

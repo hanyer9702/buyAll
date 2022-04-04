@@ -75,16 +75,33 @@
 					</button>
 				</div>
 			</form>
-			
-			<div class="col-md-auto text-end">
-				<a href="/user/loginForm" class="nav-link px-2 link-secondary">
-					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-						<path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-						<path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
-						<path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-					</svg> 로그인
-				</a>
-			</div>
+			<c:choose>
+        		<c:when test="${not empty sessSeq}">
+					<div class="col-md-auto text-end">
+						<a href="#" id="pop" class="nav-link px-2 link-secondary pop" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom">
+							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+								<path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+								<path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+								<path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+							</svg> 
+							<c:out value="${sessName}"/>
+						</a>
+					</div>
+        		</c:when>
+        		<c:otherwise>
+					<div class="col-md-auto text-end">
+						<a href="/user/loginForm" class="nav-link px-2 link-secondary">
+							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+								<path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+								<path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+								<path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+							</svg> 
+							<span>로그인</span>
+						
+						</a>
+					</div>
+        		</c:otherwise>
+       		</c:choose>
 		</header>
 	</div>
 	
@@ -105,12 +122,72 @@
 			<a class="nav-link" href="#">생활</a>
 		</nav>
 	</div>
+	
+	<!-- loaded popover content -->
+	<div id="popover-content" class="pop" style="display: none">
+	  <ul class="list-group custom-popover">
+	    <li class="list-group-item">마이페이지</li>
+	    <li class="list-group-item">주문/배송조회</li>
+	    <li class="list-group-item"><a href="#" role="button" id="btnLogout" class="btnLogout" onclick="btnLogout();">로그아웃</a></li>
+	  </ul>
+	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 	<script src="/resources/xdmin/js/validation.js"></script>
 	<script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 	<script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript">
+		var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+		var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+		  return new bootstrap.Popover(popoverTriggerEl)
+		}) 
+		
+		$(document).ready(function() {
+		  $('[data-bs-toggle="popover"]').popover({ 
+		  	trigger: "manual",
+		    html: true,
+		    animation: false,
+		    content: function() {
+		      return $('#popover-content').html();
+		    }
+		  })
+		  .on("mouseenter", function() {
+		    var _this = this;
+		    $(this).popover("show");
+		    $(".popover").on("mouseleave", function() {
+		      $(_this).popover('hide');
+		    });
+		  }).on("mouseleave", function() {
+		    var _this = this;
+		    setTimeout(function() {
+		      if (!$(".popover:hover").length) {
+		        $(_this).popover("hide");
+		      }
+		    }, 300);
+		  });
+		});
+		
+		$(document).ready(function(){
+	        $('body').on('click','.btnLogout',function(){    
+	            $.ajax({
+					async: true 
+					,cache: false
+					,type: "post"
+					,url: "/member/logoutProc"
+					,data : { "sessSeq" : $("#sessSeq").val(), "sessId" : $("#sessId").val()}
+					,success: function(response) {
+						if(response.rt == "success") {
+							location.href = "/index/indexView";
+						} else {
+							alert("오류");
+						}
+					}
+					,error : function(jqXHR, textStatus, errorThrown){
+						alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+					}
+				});
+	        })
+	    });
 		
 	</script>
 </body>

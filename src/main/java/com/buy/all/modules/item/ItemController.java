@@ -37,4 +37,12 @@ public class ItemController {
 		return "/user/item/itemDetailSale";
 	}
 	
+//	사업자 회원 상품 등록
+	@RequestMapping(value = "/item/itemForm")
+	public String itemForm(Model model) throws Exception {
+		
+		
+		return "/user/item/itemFormUser";
+	}
+	
 }
