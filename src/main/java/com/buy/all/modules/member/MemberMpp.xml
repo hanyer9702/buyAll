@@ -14,6 +14,7 @@
 			a.ifmmSeq
 			,a.ifmmId
 			,a.ifmmName 
+			,a.ifmmClassificationCd
 		FROM
 			infrMember a
 		WHERE 1=1

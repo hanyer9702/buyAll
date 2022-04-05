@@ -53,9 +53,26 @@
         }
       }
       
-      a:link{
-      	color: black;
-      }
+	.navbar a {
+		color: black;
+	}
+	
+	a:link{
+		color: black;
+		text-decoration: none;
+	}
+	a:visited {
+	  color : black;
+	  text-decoration: none;
+	}
+	a:hover {
+	  color : black;
+	  text-decoration: none;
+	}
+	a:active {
+	  color : black;
+	  text-decoration: none;
+	}
 </style>
 <title>한예린</title>
 </head>
@@ -105,13 +122,9 @@
 		</header>
 	</div>
 	
-	<div class="nav bg-body container">
-		<nav class="nav nav-underline" aria-label="Secondary navigation">
-			<a class="nav-link active" aria-current="page" href="#">카테고리</a>
-			<!-- <a class="nav-link" href="#">
-				Friends
-				<span class="badge bg-light text-dark rounded-pill align-text-bottom">27</span>
-			</a> -->
+	<div class="navbar bg-body container">
+		<nav class="navbar">
+			<a class="nav-link" href="#">카테고리</a>
 			<a class="nav-link" href="#">가전</a>
 			<a class="nav-link" href="#">컴퓨터</a>
 			<a class="nav-link" href="#">태블릿</a>
@@ -121,14 +134,33 @@
 			<a class="nav-link" href="#">식품</a>
 			<a class="nav-link" href="#">생활</a>
 		</nav>
+		
 	</div>
 	
 	<!-- loaded popover content -->
 	<div id="popover-content" class="pop" style="display: none">
 	  <ul class="list-group custom-popover">
-	    <li class="list-group-item">마이페이지</li>
-	    <li class="list-group-item">주문/배송조회</li>
-	    <li class="list-group-item"><a href="#" role="button" id="btnLogout" class="btnLogout" onclick="btnLogout();">로그아웃</a></li>
+	  	<c:choose>
+       		<c:when test="${not empty sessSeq}">
+				<c:choose>
+					<c:when test="${sessClassificationCd eq 134}">
+					<!-- 개인회원 -->
+					    <li class="list-group-item">마이페이지</li>
+					    <li class="list-group-item">주문/배송조회</li>
+					    <li class="list-group-item"><a href="#" role="button" id="btnLogout" class="btnLogout" onclick="btnLogout();">로그아웃</a></li>
+					</c:when>
+					<c:when test="${sessClassificationCd eq 135}">
+					<!-- 사업자회원 -->
+						<li class="list-group-item">마이페이지</li>
+					    <li class="list-group-item"><a href="/item/itemForm" role="button">상품등록</a></li>
+					    <li class="list-group-item"><a href="#" role="button" id="btnLogout" class="btnLogout" onclick="btnLogout();">로그아웃</a></li>
+					</c:when>
+				</c:choose>
+       		</c:when> 
+       		<c:otherwise>
+       		</c:otherwise>
+    	</c:choose>
+	  	
 	  </ul>
 	</div>
 
@@ -142,7 +174,7 @@
 		  return new bootstrap.Popover(popoverTriggerEl)
 		}) 
 		
-		$(document).ready(function() {
+		$(window).ready(function() {
 		  $('[data-bs-toggle="popover"]').popover({ 
 		  	trigger: "manual",
 		    html: true,

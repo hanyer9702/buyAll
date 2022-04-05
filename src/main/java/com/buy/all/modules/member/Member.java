@@ -14,6 +14,7 @@ public class Member {
 	private String ifmmName = "";
 	private String ifmmNickname = "";
 	private Integer ifmmDelNy = 0;
+	private String ifmmClassificationCd = "";
 	
 //	member email
 	private String ifmeEmailFull = "";
@@ -84,6 +85,12 @@ public class Member {
 	}
 	public void setIfmmName(String ifmmName) {
 		this.ifmmName = ifmmName;
+	}
+	public String getIfmmClassificationCd() {
+		return ifmmClassificationCd;
+	}
+	public void setIfmmClassificationCd(String ifmmClassificationCd) {
+		this.ifmmClassificationCd = ifmmClassificationCd;
 	}
 	
 	

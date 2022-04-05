@@ -62,6 +62,7 @@ public class MemberController {
 			httpSession.setAttribute("sessSeq", rtMember.getIfmmSeq());
 			httpSession.setAttribute("sessId", rtMember.getIfmmId());
 			httpSession.setAttribute("sessName", rtMember.getIfmmName());
+			httpSession.setAttribute("sessClassificationCd", rtMember.getIfmmClassificationCd());
 			
 			returnMap.put("rt", "success");
 		} else {
