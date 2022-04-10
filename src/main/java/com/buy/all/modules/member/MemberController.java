@@ -71,6 +71,20 @@ public class MemberController {
 		return returnMap;
 	}
 	
+	@RequestMapping(value = "/user/naverlogin")
+	public String naverlogin(Model model) throws Exception {
+		
+		
+		return "/user/login/naverlogin";
+	}
+	
+	@RequestMapping(value = "/user/callback")
+	public String callback(Model model) throws Exception {
+		
+		
+		return "/user/login/callback";
+	}
+	
 //	·Î±×¾Æ¿ô -------------------------
 	
 	@ResponseBody

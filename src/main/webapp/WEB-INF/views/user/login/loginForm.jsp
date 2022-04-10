@@ -13,6 +13,7 @@
 <link href="/resources/common/_bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="/resources/user/css/style.css" rel="stylesheet" type="text/css">
 <link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet">
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <style type="text/css">
 	a{
 		text-decoration: none;
@@ -93,7 +94,8 @@
 					</div>
 					<div class="row g-3 align-items-center" style="min-width: 565px;">
 						<div class="col-auto linksq" style="margin-left:auto;">
-							<div class="circle linksns" onclick="location.href='';" style="float: none;">
+							<div id="naver_id_login" style="display:none;"></div>
+							<div class="circle linksns naverlogin" style="float: none;">
 								<img alt="" src="/resources/user/image/icon_naver_128.png">
 							</div>
 							<div class="linksns linksen">
@@ -151,7 +153,21 @@
 				}
 			});
 	 	});
+	  	
+	  	$(document).on("click", ".naverlogin", function(){ 
+			var btnNaverLogin = document.getElementById("naver_id_login").firstChild;
+			btnNaverLogin.click();
+		});
 	 		
 	 </script>
+	 <script type="text/javascript">
+	  	var naver_id_login = new naver_id_login("g1ifsIGlccSo0q4nReZx", "http://localhost:8080/user/callback");
+	  	var state = naver_id_login.getUniqState();
+	  	naver_id_login.setButton("white", 2,40);
+	  	naver_id_login.setDomain("http://localhost:8080/user/loginForm");
+	  	naver_id_login.setState(state);
+	  	naver_id_login.setPopup();
+	  	naver_id_login.init_naver_id_login();
+	  </script>
 </body>
 </html>
