@@ -101,7 +101,14 @@
 								<path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
 								<path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
 							</svg> 
-							<c:out value="${sessName}"/>
+							<c:choose>
+								<c:when test="${sessSeq eq 0}">
+									<font id="name"></font>
+								</c:when>
+								<c:otherwise>
+									<c:out value="${sessName}"/>
+								</c:otherwise>
+							</c:choose>
 						</a>
 					</div>
         		</c:when>
@@ -158,6 +165,10 @@
 				</c:choose>
        		</c:when> 
        		<c:otherwise>
+       			<!-- 개인회원 -->
+			    <li class="list-group-item">마이페이지</li>
+			    <li class="list-group-item">주문/배송조회</li>
+			    <li class="list-group-item"><a href="#" role="button" id="btnLogout" class="btnLogout" onclick="btnLogout();">로그아웃</a></li>
        		</c:otherwise>
     	</c:choose>
 	  	
@@ -221,6 +232,13 @@
 	        })
 	    });
 		
+	</script>
+	<script type="text/javascript">
+	  $(document).ready(function() {
+	    var name = ${result}.response.nickname;
+	    $("#name").html(name); 
+	    });
+	  //location.href = "${pageContext.request.contextPath}/";
 	</script>
 </body>
 </html>

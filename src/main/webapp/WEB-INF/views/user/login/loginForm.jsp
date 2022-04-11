@@ -93,7 +93,7 @@
 								</div>
 					</div>
 					<div class="row g-3 align-items-center" style="min-width: 565px;">
-						<div class="col-auto linksq" style="margin-left:auto;">
+						<div class="col-auto linksq" style="margin-left:auto;" onclick="location.href='${url}';">
 							<div id="naver_id_login" style="display:none;"></div>
 							<div class="circle linksns naverlogin" style="float: none;">
 								<img alt="" src="/resources/user/image/icon_naver_128.png">
@@ -154,10 +154,10 @@
 			});
 	 	});
 	  	
-	  	$(document).on("click", ".naverlogin", function(){ 
+	  	/* $(document).on("click", ".naverlogin", function(){ 
 			var btnNaverLogin = document.getElementById("naver_id_login").firstChild;
 			btnNaverLogin.click();
-		});
+		}); */
 	 		
 	 </script>
 	 <script type="text/javascript">

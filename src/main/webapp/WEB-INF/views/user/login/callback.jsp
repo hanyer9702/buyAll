@@ -5,6 +5,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
+<div>${result}</div>
 <script type="text/javascript">
   var naver_id_login = new naver_id_login("g1ifsIGlccSo0q4nReZx", "http://localhost:8080/index/indexView");
   // 접근 토큰 값 출력
@@ -12,11 +13,11 @@
   // 네이버 사용자 프로필 조회
   naver_id_login.get_naver_userprofile("naverSignInCallback()");
   // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-  function naverSignInCallback() {
+  /* function naverSignInCallback() {
     alert(naver_id_login.getProfileData('email'));
     alert(naver_id_login.getProfileData('nickname'));
     alert(naver_id_login.getProfileData('age'));
-  }
+  } */
 </script>
 </body>
 </html>

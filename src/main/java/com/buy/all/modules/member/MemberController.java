@@ -1,5 +1,6 @@
 package com.buy.all.modules.member;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,7 +16,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.buy.all.modules.naver.NaverLoginBo;
+import com.github.scribejava.core.model.OAuth2AccessToken;
 
 
 
@@ -42,12 +48,12 @@ public class MemberController {
 	}
 	
 //	로그인----------------------------------
-	@RequestMapping(value = "/user/loginForm")
-	public String login(Model model) throws Exception {
-		
-		
-		return "/user/login/loginForm";
-	}
+//	@RequestMapping(value = "/user/loginForm")
+//	public String login(Model model) throws Exception {
+//		
+//		
+//		return "/user/login/loginForm";
+//	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/loginProc")
@@ -71,18 +77,54 @@ public class MemberController {
 		return returnMap;
 	}
 	
-	@RequestMapping(value = "/user/naverlogin")
-	public String naverlogin(Model model) throws Exception {
-		
-		
-		return "/user/login/naverlogin";
+//	네이버 로그인
+	
+//	@RequestMapping(value = "/user/naverlogin")
+//	public String naverlogin(Model model) throws Exception {
+//		
+//		
+//		return "/user/login/naverlogin";
+//	}
+//	
+//	@RequestMapping(value = "/user/callback")
+//	public String callback(Model model) throws Exception {
+//		
+//		
+//		return "/user/login/callback";
+//	}
+	
+	/* NaverLoginBO */
+	private NaverLoginBo naverLoginBO;
+
+	/* NaverLoginBO */
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBo naverLoginBO){
+		this.naverLoginBO = naverLoginBO;
 	}
 	
-	@RequestMapping(value = "/user/callback")
-	public String callback(Model model) throws Exception {
+    @RequestMapping("/user/loginForm")
+    public ModelAndView login(HttpSession session) {
+        /* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
+        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+        
+        /* 생성한 인증 URL을 View로 전달 */
+        return new ModelAndView("/user/login/loginForm", "url", naverAuthUrl);
+    }
+        
+    @RequestMapping("/user/callback")
+	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException {
+		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		
+		//로그인 사용자 정보를 읽어온다.
+		String apiResult = naverLoginBO.getUserProfile(oauthToken);
+        System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
+        session.setAttribute("result", apiResult);
+        System.out.println("result"+apiResult);
+        
+        session.setAttribute("sessSeq", 0);
+        session.setAttribute("sessClassificationCd", 134);
 		
-		return "/user/login/callback";
+		return "redirect:/index/indexView";
 	}
 	
 //	로그아웃 -------------------------
