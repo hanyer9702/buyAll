@@ -112,12 +112,12 @@ public class MemberController {
     }
         
     @RequestMapping("/user/callback")
-	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException {
+	public String callback(@RequestParam String code, @RequestParam String state, @RequestParam Map<String,Object> paramMap, HttpSession session) throws IOException {
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		
 		//로그인 사용자 정보를 읽어온다.
 		String apiResult = naverLoginBO.getUserProfile(oauthToken);
-        System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
+//      System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
         session.setAttribute("result", apiResult);
         System.out.println("result"+apiResult);
         
@@ -126,6 +126,25 @@ public class MemberController {
 		
 		return "redirect:/index/indexView";
 	}
+    
+//    구글 로그인
+    
+    @ResponseBody //구글 로그인
+	@RequestMapping(value = "/user/loginProcGoogle")
+	public Map<String, Object> GloginProc(@RequestParam("ifmmName")String name, Member dto, HttpSession httpSession) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		System.out.println(name);
+		httpSession.setAttribute("sessName",name);
+		httpSession.setAttribute("sessId","구글 회원입니다");
+		httpSession.setAttribute("sessSeq",0);
+		httpSession.setAttribute("sessClassificationCd", 134);
+	
+		returnMap.put("rt", "success");
+		
+		return returnMap;
+	}
+
 	
 //	로그아웃 -------------------------
 	

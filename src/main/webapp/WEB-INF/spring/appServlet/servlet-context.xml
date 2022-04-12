@@ -26,4 +26,4 @@
 	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
 	<beans:bean id="naverLoginBO" class="com.buy.all.modules.naver.NaverLoginBo" />
 	
-</beans:beans>
+</beans:beans> 
