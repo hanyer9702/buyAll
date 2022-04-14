@@ -29,7 +29,7 @@
 		cursor: pointer;
 	}
 	.linksq{
-		padding: 40px;
+		padding: 20px;
 		color: gray;
 	}
 	.linksen{
@@ -112,7 +112,7 @@
 								<div>카카오 로그인</div>
 							</div>
 						</div>
-						<div class="col-auto linksq" style="margin-right:auto;">
+						<div class="col-auto linksq">
 							<div class="circle linksns" onclick="location.href='';">
 								<img alt="" src="/resources/user/image/icon_facebook_128.png">
 							</div>
@@ -120,11 +120,21 @@
 								<div>페이스북 로그인</div>
 							</div>
 						</div>
+						<div class="col-auto linksq" id="GgCustomLogin" style="margin-right:auto;">
+							<a href="javascript:void(0)">
+								<div class="circle linksns" onclick="">
+									<img alt="" src="/resources/user/image/icon_facebook_128.png">
+								</div>
+								<div class="linksns linksen" style="margin-left:10px;">
+									<div>구글 로그인</div>
+								</div>
+							</a>
+						</div>
 					</div>
-					<button class="btn btn-sm" type="button" id="GgCustomLogin">
-	    			<a href="javascript:void(0)">
+					<!-- <button class="btn btn-sm" type="button" id="GgCustomLogin"> -->
+	    			<!-- <a href="javascript:void(0)">
 	    				google
-	    			</a>
+	    			</a> -->
 	    			</button>
 				 </form>
 				 <div style="margin-left: 25%;">
@@ -140,7 +150,6 @@
 	 <script src="/resources/xdmin/js/validation.js"></script>
 	 <script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-	 //구글 api 사용을 위한 스크립트
 	  <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 	 <script type="text/javascript">
 	 	$("#btnLogin").on("click",function(){
@@ -239,6 +248,64 @@
 	  	}
 
 	  </script>
+	  <script>
+		/* facebook */
+		  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+		    console.log('statusChangeCallback');
+		    console.log(response);                   // The current login status of the person.
+		    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+		      testAPI();  
+		    } else {                                 // Not logged into your webpage or we are unable to tell.
+		      document.getElementById('status').innerHTML = 'Please log ' +
+		        'into this webpage.';
+		    }
+		  }
+		
+		
+		  function checkLoginState() {               // Called when a person is finished with the Login Button.
+		    FB.getLoginStatus(function(response) {   // See the onlogin handler
+		      statusChangeCallback(response);
+		    });
+		  }
+		
+		
+		  window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '751469992906195',    // app_Id 입력
+		      cookie     : true,                     // Enable cookies to allow the server to access the session.
+		      xfbml      : true,                     // Parse social plugins on this webpage.
+		      version    : 'v13.0'           // 최신버전인 13을 썼습니다. 사용자에 맞춰서 구버전을 써도 된다고는 하는데 특별한 일이 없다면 최신을 쓰시길 권장합니다.
+		    });
+		
+		
+		    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+		      statusChangeCallback(response);        // Returns the login status.
+		    });
+		  };
+		 
+		  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+		    console.log('Welcome!  Fetching your information.... ');
+		    FB.api('/me', function(response) {
+		      console.log('Successful login for: ' + response.name);
+		      document.getElementById('status').innerHTML =
+		        'Thanks for logging in, ' + response.name + '!';
+		    });
+		  }
+		
+		</script>
+		
+		
+		<!-- The JS SDK Login Button -->
+		
+		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+		</fb:login-button>
+		
+		<div id="status">
+		</div>
+		
+		<!-- Load the JS SDK asynchronously -->
+		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+	  
 	  
 	  
 </body>

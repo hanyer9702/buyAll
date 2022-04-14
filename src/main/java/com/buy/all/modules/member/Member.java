@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import com.buy.all.modules.common.util.SecureUtils;
+
 
 public class Member {
 	
@@ -20,9 +25,31 @@ public class Member {
 	private String ifmeEmailFull = "";
 	private Integer ifmeDelNy = 0;
 	
+//	member phone
+	private String ifmpNumber = "";
+	
 //	시간
 	private Date regDateTime;
 	private Date modDateTime;
+	
+//	네이버
+	private static final String DEFAULT_PASSPHRASE = "!@#!@#%^!(#$!@#asl1aoS9Va021@#";
+	
+	@SuppressWarnings("unused")
+	protected Member(){}
+	
+	public Member(String userName, String password, String email, String nickName, String mobile) {
+		super();
+		this.ifmmName = userName;
+		if(StringUtils.isEmpty(password)){
+			this.ifmmPassword = SecureUtils.getPasswordHash(DEFAULT_PASSPHRASE, DEFAULT_PASSPHRASE);
+		} else {
+			this.ifmmPassword = SecureUtils.getPasswordHash(password, userName);
+		}
+		this.ifmeEmailFull = email;
+		this.ifmmNickname = nickName;
+		this.ifmpNumber = mobile;
+	}
 	
 	
 //	--------------------------------
@@ -92,6 +119,11 @@ public class Member {
 	public void setIfmmClassificationCd(String ifmmClassificationCd) {
 		this.ifmmClassificationCd = ifmmClassificationCd;
 	}
-	
-	
+	public boolean isValidPassword(String plainPassword){
+		return SecureUtils.isMatchedPassword(plainPassword, this.ifmmName, this.ifmmPassword);
+	}
+	@Override
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this);
+	}
 }

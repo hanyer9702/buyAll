@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.buy.all.modules.common.util.UtilDateTime;
+import com.buy.all.modules.naver.NaverUser;
+import com.buy.all.modules.naver.SnsUser;
 
 
 
@@ -35,5 +37,15 @@ public class MemberServiceImpl implements MemberService{
 		
 		return 0;
 	}
+
+	@Override
+	public SnsUser selectUserBySnsId(NaverUser naverUser) throws Exception {
+		if(naverUser != null){
+			String snsId = naverUser.getId();
+			return (SnsUser) dao.selectUserBySnsId(snsId);
+		}
+		return null;
+	}
+	
 	
 }

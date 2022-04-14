@@ -8,6 +8,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.buy.all.modules.naver.NaverUser;
+import com.buy.all.modules.naver.SnsUser;
+
 
 
 @Repository
@@ -31,4 +34,10 @@ public class MemberDao {
 	public int insertMemberEmail(Member dto) {
 		return sqlSession.insert(namespace + ".insertMemberEmail", dto);
 	}
+	
+//	네이버 로그인
+	public Member selectUserBySnsId(String snsId) {
+		return sqlSession.selectOne(namespace + "selectSnsUserBySnsId", snsId);
+	}
+	
 }
