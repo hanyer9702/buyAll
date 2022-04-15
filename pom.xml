@@ -230,6 +230,13 @@
 		    <version>1.9</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+		<!-- jsoup -->
+		<dependency>
+		    <groupId>org.jsoup</groupId>
+		    <artifactId>jsoup</artifactId>
+		    <version>1.13.1</version>
+		</dependency>
+		<!-- jsoup -->
 	</dependencies>
     <build>
         <plugins>
