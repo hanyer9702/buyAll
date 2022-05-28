@@ -63,7 +63,7 @@
 				<button type="button" style="float: right; margin-top: 40px; background-color: white; border: 1px solid #BDBDBD;">비로그인 주문조회</button>
 			</header>
 			<section>
-				 <form action="" method="post" id="" name="" enctype="multipart/form-data">
+				 <form action="" method="post" id="loginForms" name="" enctype="multipart/form-data">
 				 	<div class="form-check" style="margin-bottom: 20px;">
 						<input class="form-check-input" type="checkbox" value="" id="keepLogin">
 						<label class="form-check-label" for="keepLogin">
@@ -72,13 +72,19 @@
 				 	</div>
 				 	<div>
 				 		<div class="mb-3 mar">
-						    <input type="text" class="form-control form-control-lg" id="ifmmId" placeholder="아이디/인증 이메일">
+						    <input type="text" class="form-control form-control-lg" id="ifmmId" placeholder="아이디">
+						    <div class="valid-feedback">
+						    	아이디를 입력하세요.
+						    </div>
 						  </div>
 						  <div class="mb-3">
 						  	<input type="password" class="form-control form-control-lg" id="ifmmPassword" placeholder="비밀번호">
+						  	<div class="valid-feedback">
+						    	비밀번호를 입력하세요.
+						    </div>
 						  </div>
 						  <div class="d-grid gap-2">
-						  	<button type="button" class="btn btn-primary btn-lg" id="btnLogin" name="">로그인</button>
+						  	<button type="submit" class="btn btn-primary btn-lg" id="btnLogin" name="">로그인</button>
 						  </div>
 				 	</div>
 				 	<div class="row g-3 align-items-center" style="padding-top: 20px; min-width: 500px;">
@@ -135,7 +141,7 @@
 	    			<!-- <a href="javascript:void(0)">
 	    				google
 	    			</a> -->
-	    			</button>
+	    			<!-- </button> -->
 				 </form>
 				 <div style="margin-left: 25%;">
 				 	<img class="ad" alt="" src="/resources/user/image/ad.png">
@@ -152,6 +158,7 @@
 	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 	  <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 	 <script type="text/javascript">
+		
 	 	$("#btnLogin").on("click",function(){
 	 		$.ajax({
 				async: true 
@@ -176,6 +183,9 @@
 			var btnNaverLogin = document.getElementById("naver_id_login").firstChild;
 			btnNaverLogin.click();
 		}); */
+		
+		
+		
 	 		
 	 </script>
 	 <script type="text/javascript">
