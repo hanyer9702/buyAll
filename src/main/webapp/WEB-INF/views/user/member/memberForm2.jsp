@@ -13,7 +13,6 @@
 <link href="/resources/common/_bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="/resources/user/css/style.css" rel="stylesheet" type="text/css">
 <link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet">
-
 <style type="text/css">
 	a{
 		text-decoration: none;
@@ -82,31 +81,68 @@
 				<h1 class="col d-flex justify-content-center">회원가입</h1>
 			</header>
 			<section>
-				<form id="memberForm" name="memberForm" action="/user/memberInst" method="post">
+				<form id="memberForm" name="memberForm" action="/user/memberInst" method="get">
 					<div class="guide">
 						<h5 class="">아래 항목을 모두 필수로 입력해주세요.</h5>
+					</div>
+					<div class="row m-4 px-5 g-3">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="checkboxAll" name="checkboxAll">
+							<label class="form-check-label" for="">
+								<h5>약관 모두 동의하기</h5>
+							</label> 
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="" name="checkboxSeq">
+							<label class="form-check-label" for="">
+								만 14세 이상입니다. <span class="defaultCheck">(필수)</span>
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="1" id="ifmmServiceConsentNy" name="checkboxSeq">
+							<label class="form-check-label" for="">
+								서비스 이용 약관 <span class="defaultCheck">(필수)</span>
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="1" id="ifmmPersonalConsentNy" name="checkboxSeq">
+							<label class="form-check-label" for="">
+								개인정보 수집 및 이용 <span class="defaultCheck">(필수)</span>
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="1" id="ifmmEmailConsentNy" name="checkboxSeq">
+							<label class="form-check-label" for="">
+								이벤트/쇼핑혜택 이메일 수신 <span class="choiceCheck">(선택)</span>
+							</label>
+						</div>
 					</div>
 					<div class="row m-4 px-5 g-3">
 						<hr>
 						<div class="mb-3">
 							<label for="" class="form-label">아이디</label>
-							<input type="text" class="form-control" id="ifmmId" name="ifmmId">
+							<input type="text" class="form-control" id="ifmmId" name="ifmmId" placeholder="영문 4자 이상, 최대 20자">
 						</div>
 						<div class="mb-3">
 							<label for="" class="form-label">비밀번호</label>
-							<input type="password" class="form-control" id="ifmmPassword" name="ifmmPassword">
+							<input type="password" class="form-control" id="ifmmPassword" name="ifmmPassword" placeholder="숫자, 영문, 특수문자 포함 최소 8자 이상">
 						</div>
 						<div class="mb-3">
 							<label for="" class="form-label">비밀번호 확인</label>
-							<input type="password" class="form-control" id="ifmmPasswordAgain" name="ifmmPasswordAgain">
+							<input type="password" class="form-control" id="" name="ifmmPasswordAgain" placeholder="숫자, 영문, 특수문자 포함 최소 8자 이상">
 						</div>
 						<div class="mb-3">
 							<label for="" class="form-label">이름</label>
 							<input type="text" class="form-control" id="ifmmName" name="ifmmName" placeholder="">
 						</div>
 						<div class="mb-3">
+							<label for="" class="form-label">닉네임</label>
+							<input type="text" class="form-control" id="ifmmNickname" name="ifmmNickname" placeholder="한글 8자, 영문 16자까지 가능">
+						</div>
+						<div class="mb-3">
 							<label for="" class="form-label">이메일 주소</label>
 							<input type="text" class="form-control mb-2" id="ifmeEmailFull" name="ifmeEmailFull" placeholder="이메일 주소 입력">
+							<span style="font-size:13px;">가입 완료를 위한 이메일 인증이 진행되니 정확한 이메일 주소를 입력해주시기 바랍니다.</span>
 						</div>
 					</div>
 					<div class="d-grid gap-2 col-9 mx-auto" style="height:50px;">
@@ -122,82 +158,28 @@
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 	 <script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-	 
-	 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
-	 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+	 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 	 <script type="text/javascript">
-	 $( document ).ready( function () {
-			$( "#memberForm" ).validate( {
-				rules: {
-					ifmmId: {
-						required: true,
-					},
-					ifmmPassword: {
-						required: true,
-					},
-					ifmmPasswordAgain: { 
-						required: true,
-						equalTo: "#ifmmPassword"
-					},
-					ifmmName: "required",
-					ifmeEmailFull: {
-						required: true,
-						email: true
-					}
-				},
-				messages: {
-					ifmmId: {
-						required: "아이디를 입력하세요."
-					},
-					ifmmPassword: {
-						required: "비밀번호를 입력하세요"
-					},
-					ifmmPasswordAgain: {
-						required: "비밀번호를 다시 입력하세요",
-						equalTo: "비밀번호가 같지 않습니다."
-					},
-					ifmeEmailFull: {
-						required: "이메일을 입력하세요",
-						email: "이메일 형식이 맞지 않습니다."
-					},
-					ifmmName: "이름을 입력하세요"
-				},
-				errorElement: "em",
-				errorPlacement: function ( error, element ) {
-					// Add the `help-block` class to the error element
-					error.addClass( "help-block" );
-
-					// Add `has-feedback` class to the parent div.form-group
-					// in order to add icons to inputs
-					element.parents( ".col-md-4" ).addClass( "has-feedback" );
-
-					if ( element.prop( "type" ) === "checkbox" ) {
-						error.insertAfter( element.parent( "label" ) );
-					} else {
-						error.insertAfter( element );
-					}
-
-					// Add the span element, if doesn't exists, and apply the icon classes to it.
-					if ( !element.next( "span" )[ 0 ] ) {
-						$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
-					}
-				},
-				success: function ( label, element ) {
-					// Add the span element, if doesn't exists, and apply the icon classes to it.
-					if ( !$( element ).next( "span" )[ 0 ] ) {
-						$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
-					}
-				},
-				highlight: function ( element, errorClass, validClass ) {
-					$( element ).parents( ".col-md-4" ).addClass( "has-error" ).removeClass( "has-success" );
-					$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
-				},
-				unhighlight: function ( element, errorClass, validClass ) {
-					$( element ).parents( ".col-md-4" ).addClass( "has-success" ).removeClass( "has-error" );
-					$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
-				}
-			} );
-		} );
+	 
+	 	$("#checkboxAll").click(function(){
+			if($("#checkboxAll").is(":checked")) $("input[name=checkboxSeq]").prop("checked",true);
+			else $("input[name=checkboxSeq]").prop("checked",false);
+		});
+	 	
+	 	jQuery.validator.setDefaults({
+	 		  debug: true,
+	 		  success: "valid"
+	 		});
+	 		$( "#memberForm" ).validate({
+	 		  rules: {
+	 			 ifmeEmailFull: {
+	 		      required: true,
+	 		      email: true
+	 		    }
+	 		  }
+	 		});
+	 	
 	 </script>
 </body>
 </html>

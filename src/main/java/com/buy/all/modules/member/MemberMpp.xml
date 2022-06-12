@@ -26,7 +26,7 @@
 	
 	<!-- 회원가입 앞 -->
 	
-	<insert id="insertMember">
+	<!-- <insert id="insertMember">
 		INSERT INTO infrMember(
 			ifmmId
 			, ifmmPassword
@@ -69,9 +69,52 @@
 			, #{regDateTime}
 			, #{modDateTime}
 		)
-	</insert>
+	</insert> -->
 	
 	<!-- 회원가입 끝 -->
+	
+	<!-- 회원가입 시험용 -->
+	
+	<insert id="insertMember">
+		INSERT INTO infrMember(
+			ifmmId
+			, ifmmPassword
+			, ifmmName
+			, ifmmDelNy
+			, regDateTime
+			, modDateTime
+		) VALUES (
+			#{ifmmId}
+			, #{ifmmPassword}
+			, #{ifmmName}
+			, 0
+			, #{regDateTime}
+			, #{modDateTime}
+		)
+		<selectKey resultType="string" keyProperty="ifmmSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertMemberEmail">
+		INSERT INTO infrMemberEmail(
+			ifmmSeq
+			,ifmeEmailFull
+			,ifmeDefaultNy
+			,ifmeDelNy
+			, regDateTime
+			, modDateTime
+		) VALUES (
+			#{ifmmSeq} 
+			,#{ifmeEmailFull}
+			,1
+			,0
+			, #{regDateTime}
+			, #{modDateTime}
+		)
+	</insert>
+	
+	<!-- 회원가입 시험용 -->
 	
 	<!-- 네이버 로그인 -->
 	<select id="selectSnsUserBySnsId" resultMap="resultMapObj">
